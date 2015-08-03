@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EventfullyJ">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../EventfullyJ/out/artifacts/EventfullyJ/EventfullyJ.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
