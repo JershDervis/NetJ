@@ -28,11 +28,13 @@ This code will open a Socket connecting to the localhost callback address on por
 
 Creating a Packet:
 Create a new class (e.g. "PacketConnect") and extend me.jershdervis.netj.transfer.Packet
+
     public class PacketConnect extends Packet {
         public String connectMessage; //This is some data we will be passing through
     }
     
 Sending a Packet:
+
     PacketConnect myCustomPacket = new PacketConnect(); //Initialize a local instance of your packet
     myCustomPacket.connectMessage = "Hello World!"; //Set the data you wish to send
     client.getClientConnectionThread().getObjectOutputStream().writeObject(myCustomPacket); //Write your packet to Server
@@ -48,6 +50,7 @@ Events to be used for the Client:
  - More events will be added shortly (e.g. EventClientConnectServer, EventClientDisconnectServer etc..)
  
 Listening for events:
+
     @EventTarget
     public void eventServerReceivePacket(EventServerReceivePacket event) {
         ClientListenerThread client = event.getClient(); //This is the ClientListenerThread(Client) the Packet came from
