@@ -51,13 +51,20 @@ Events to be used for the Client:
  
 Listening for events:
 
-    @EventTarget
-    public void eventServerReceivePacket(EventServerReceivePacket event) {
-        ClientListenerThread client = event.getClient(); //This is the ClientListenerThread(Client) the Packet came from
-        Packet packet = event.getPacket(); //This is the packet the Server received from the ClientListenerThread(Client)
-        if(packet instanceof PacketConnect) {
-          PacketConnect pc = (PacketConnect) packet;
-          System.out.println(pc.connectMessage);
+    server.addServerListener(new ServerListener() {
+        public void clientConnect(Server server, ClientListenerThread client) {
         }
-    }
+        
+        public void void receivePacket(ClientListenerThread client, Packet packet) {
+        }
+        
+        public void receivePacket(ClientListenerThread client, Packet packet) {
+        }
+    });
+    
+    
+    client.addClientListener(new ClientListener() {
+        public void receivePacket(ClientConnectionThread client, Packet packet) {
+        }
+    });
     
