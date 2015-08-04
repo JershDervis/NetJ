@@ -1,9 +1,6 @@
 package me.jershdervis.netj.server;
 
-import com.darkmagician6.eventapi.EventManager;
 import me.jershdervis.netj.Server;
-import me.jershdervis.netj.events.EventServerClientDisconnect;
-import me.jershdervis.netj.events.EventServerReceivePacket;
 import me.jershdervis.netj.transfer.Packet;
 
 import java.io.*;
@@ -38,11 +35,16 @@ public class ClientListenerThread implements Runnable {
                     if(incoming instanceof Packet) {
                         Packet packet = (Packet) incoming;
                         System.out.println("[SERVER] Received Packet: " + packet.getClass().getSimpleName());
-                        EventManager.call(new EventServerReceivePacket(this, packet));
+
+                        for(ServerListener listener : this.server.getServerListenerList())
+                            listener.receivePacket(this, packet);
                     }
                 }
                 this.server.getClientList().remove(this);
-                EventManager.call(new EventServerClientDisconnect(this.server, this));
+
+                for(ServerListener listener : this.server.getServerListenerList())
+                    listener.clientDisconnect(this.server, this);
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {

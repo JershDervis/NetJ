@@ -1,11 +1,13 @@
 package me.jershdervis.netj;
 
 import me.jershdervis.netj.server.ClientListenerThread;
+import me.jershdervis.netj.server.ServerListener;
 import me.jershdervis.netj.server.ServerListenerThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JershDervis on 8/2/2015.
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 public class Server {
 
     private ArrayList<ClientListenerThread> clientList = new ArrayList<>();
+
+    private List<ServerListener> serverListenerList = new ArrayList<ServerListener>();
 
     private boolean isServerOpen;
 
@@ -26,6 +30,22 @@ public class Server {
      */
     public Server(int port) {
         this.port = port;
+    }
+
+    /**
+     * Register a listener to post events to
+     * @param listener
+     */
+    public void addServerListener(ServerListener listener) {
+        this.serverListenerList.add(listener);
+    }
+
+    /**
+     * Unregister a listener to stop posting events to
+     * @param listener
+     */
+    public void removeServerListener(ServerListener listener) {
+        this.serverListenerList.remove(listener);
     }
 
     /**
@@ -73,5 +93,13 @@ public class Server {
      */
     public synchronized ArrayList<ClientListenerThread> getClientList() {
         return this.clientList;
+    }
+
+    /**
+     * Get ServerListener list
+     * @return
+     */
+    public synchronized List<ServerListener> getServerListenerList() {
+        return serverListenerList;
     }
 }

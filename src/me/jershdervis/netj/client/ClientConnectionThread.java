@@ -1,8 +1,6 @@
 package me.jershdervis.netj.client;
 
-import com.darkmagician6.eventapi.EventManager;
 import me.jershdervis.netj.Client;
-import me.jershdervis.netj.events.EventClientReceivePacket;
 import me.jershdervis.netj.transfer.Packet;
 
 import java.io.IOException;
@@ -40,7 +38,9 @@ public class ClientConnectionThread implements Runnable {
                     if (incoming instanceof Packet) {
                         Packet packet = (Packet) incoming;
                         System.out.println("[CLIENT] Received Packet: " + packet.getClass().getSimpleName());
-                        EventManager.call(new EventClientReceivePacket(this, packet));
+                        for(ClientListener listener : this.client.getListeners()) {
+                            listener.receivePacket(this, packet);
+                        }
                     }
                 }
             } catch (IOException e) {
