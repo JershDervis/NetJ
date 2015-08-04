@@ -1,9 +1,6 @@
 # NetJ
 A Java object Packet API
 
-This project uses DarkMagician6's EventAPI:
-https://bitbucket.org/DarkMagician6/eventapi
-
 Hosting a Server example:
 
     Server server = new Server(1725);
